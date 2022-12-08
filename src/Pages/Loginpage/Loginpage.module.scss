@@ -1,0 +1,43 @@
+@import './../../Styles/variable';
+
+.login {
+    background: url('./images/loginbackground.jpg') no-repeat center center/cover;
+    height: 100vh;
+}
+
+.form {
+    position: absolute;
+    background-color: white;
+    top: 100px;
+    left: 650px;
+    width: 450px;
+    height: 600px;
+    padding: 50px;
+    opacity: 0.7;
+    border-radius: 15px;
+
+    h2 {
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+
+    &__formcontrol {
+        width: 350px;
+        margin-bottom: 35px;
+
+        label {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        button {
+            font-size: 17px;
+        }
+
+        .errorm {
+            color: $redColor;
+        }
+    }
+}
