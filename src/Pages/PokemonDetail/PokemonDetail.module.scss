@@ -1,0 +1,51 @@
+@import './../../Styles/variable';
+
+.heading {
+    background-color: $keppelColor;
+    color: $whiteColor;
+    width: 100%;
+    padding: 10px;
+}
+
+.buttoncolor {
+    background-color: $keppelColor;
+    color: $whiteColor;
+    width: 150px;
+    border-radius: 5px;
+    text-align: center;
+
+    .MuiButtonBase-root {
+        font-weight: bolder;
+        width: 150px;
+        font-size: 15px;
+        padding: 150px;
+    }
+}
+
+h3 {
+    font-size: 30px;
+    margin: 20px 0px 20px 0px;
+}
+
+.pokemonDetail {
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .middleData {
+        text-align: center;
+
+        .label {
+            font-weight: bold;
+        }
+
+        .flexdiv {
+            padding: 10px;
+        }
+
+        .ability {
+            padding: 20px;
+        }
+    }
+}

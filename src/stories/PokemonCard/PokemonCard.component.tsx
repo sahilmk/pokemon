@@ -1,8 +1,10 @@
-import { Card } from "./PokemonCard.styled"
+import { Card } from "./PokemonCard.styled";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { PokemonDetail } from "../../Pages";
 
 export type PokemonCardType = {
     iurl: string,
-    pokemonName: number,
+    pokemonName: string,
     pokemonHeight: number
     pokemonWeight: number,
     abilities: string[]
@@ -14,8 +16,15 @@ function PokemonCard({
     pokemonHeight,
     pokemonWeight,
     abilities }: PokemonCardType) {
+    const nevigate = useNavigate();
+
+
+    const handleOnClickevent = (pokemonName: string) => {
+        nevigate(`/pokemondetail/${pokemonName}`)
+    }
+
     return (
-        <Card>
+        <Card onClick={() => handleOnClickevent(pokemonName)}>
             <img src={iurl} alt="img" />
             <div className="flexdiv">
                 <span className='label'>Name: </span>

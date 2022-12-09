@@ -5,9 +5,9 @@ export type InputType = {
     hasFullWidth?: boolean,
     inputType?: string,
     inputColor?: "error" | "primary" | "secondary" | "info" | "success" | "warning" | undefined,
-    onBlur: (event?: React.FocusEvent<HTMLElement>) => void,
-    onChange: (event: React.ChangeEvent<HTMLElement> | any) => void,
-    onFocus: (event?: React.FocusEvent<HTMLElement>) => void
+    onBlur?: (event?: React.FocusEvent<HTMLElement>) => void,
+    onChange?: (event: React.ChangeEvent<HTMLElement> | any) => void,
+    onFocus?: (event?: React.FocusEvent<HTMLElement>) => void
 }
 
 function Inputcomp({

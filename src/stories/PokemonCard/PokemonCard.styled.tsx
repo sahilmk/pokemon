@@ -4,7 +4,7 @@ import { color } from "../../Theme/variable";
 export const Card = styled.div`
     box-shadow: rgb(0 0 0 / 5%) 0px 0px 20px, rgb(0 0 0 / 8%) 0px 0px 40px;
     height: auto;
-    width: 600px;
+    width: 550px;
     padding: 20px;
 
     .label{
@@ -25,5 +25,10 @@ export const Card = styled.div`
         color: ${color.whiteColor};
         padding: 10px;
         margin-right: 5px;
+    }
+
+    img{
+        height: 100px;
+        width: 100px;
     }
 `

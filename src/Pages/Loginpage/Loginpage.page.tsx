@@ -1,7 +1,10 @@
-import { Form, Field } from 'react-final-form'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Form, Field } from 'react-final-form'
+import { Alert, Stack } from '@mui/material'
 import { Buttoncomp, Inputcomp } from '../../stories'
 import style from './Loginpage.module.scss'
+import { invalidCredentialsMessage } from '../../Util/Constans'
 
 export type FormType = {
     useremail?: string,
@@ -21,9 +24,11 @@ export type LoginType = {
 
 function Loginpage({ loginState, setLoginState }: LoginType) {
     const navigate = useNavigate();
+    const [buttonClick, setButtonClick] = useState<boolean>(false);
 
     const onSubmit = (e: FormType) => {
         const allUsers = localStorage.getItem('users');
+        setButtonClick(true)
 
         if (allUsers) {
             const convertedUser = JSON.parse(allUsers);
@@ -106,6 +111,13 @@ function Loginpage({ loginState, setLoginState }: LoginType) {
 
                 <Link to={'/register'}>New user? Register</Link>
             </div>
+            {
+                (!loginState && buttonClick) && (
+                    <Stack sx={{ width: '100%' }} spacing={2}>
+                        <Alert severity="error">{invalidCredentialsMessage}</Alert>
+                    </Stack>
+                )
+            }
         </div>
     )
 }

@@ -1,18 +1,21 @@
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { Loginpage, PokemonListing, Registerpage } from './Pages'
+import { Routes, Route, useParams } from 'react-router-dom'
+import { Loginpage, PokemonDetail, PokemonListing, Registerpage } from './Pages'
 import './Styles/main.scss'
 
 function App() {
   const localData = localStorage.getItem("login");
   const [loginState, setLoginState] = useState(localData === "true" ? true : false);
 
+
   return (
     <>
       <Routes>
         {loginState ?
           <>
-            <Route path='/' element={<PokemonListing />} />
+            <Route path='/' element={<PokemonListing loginState={loginState} setLoginState={setLoginState} />} />
+            <Route path={`/pokemondetail/:name`} element={<PokemonDetail />} />
+
           </>
           :
           <>
