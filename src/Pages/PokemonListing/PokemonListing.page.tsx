@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Field, Form } from "react-final-form"
-import { Grid, IconButton } from "@mui/material"
+import { Grid, IconButton, Input } from "@mui/material"
 import { LoginType } from "../Loginpage/Loginpage.page"
 import { Buttoncomp, Inputcomp } from "../../stories"
 import { PokemonCard } from "../../stories"
@@ -10,6 +10,7 @@ import { GetMethod } from "../../Util/ApiManager"
 import { baseUrl } from "../../Util/endpoints"
 import { EbilitiesType, PokemonDataType } from "../PokemonDetail/PokemonDetail.page"
 import style from './PokemonListing.module.scss'
+
 
 export type PokemonType = {
     name: string,
@@ -53,21 +54,20 @@ function PokemonListing({ loginState, setLoginState }: LoginType) {
 
     }
 
-    const validate = (e: { search: string }) => {
+    const matchData = (search: string) => {
+        const localData = JSON.parse(localStorage.getItem('pokemonData') || "{}");
 
-        if (localStorage.getItem('pokemonData') && e.search !== '') {
-            const localData = JSON.parse(localStorage.getItem('pokemonData') || "{}");
-
+        if (search) {
             const matchedData: PokemonDataType[] = [];
 
-            // if (localData && e.search !== '') {
             localData.map((cardData: any) => {
-                if (cardData.species.name.match(e.search)) {
+                if (cardData.species.name.match(search)) {
                     matchedData.push(cardData);
-                } else {
+                }
+                else {
                     var dataFound = false;
-                    const data = cardData.abilities.map((pability: EbilitiesType) => {
-                        if (pability.ability.name.match(e.search)) {
+                    cardData.abilities.map((pability: EbilitiesType) => {
+                        if (pability.ability.name.match(search)) {
                             dataFound = true;
                         }
                     })
@@ -77,11 +77,17 @@ function PokemonListing({ loginState, setLoginState }: LoginType) {
                 }
             })
 
-            // }
             setPokemonData(matchedData);
+        } else {
+            setPokemonData(localData);
         }
+    }
 
+    const validate = (e: { search: string }) => {
         const errors: any = [];
+        if (!e) {
+            errors.search = 'Please enter name or ability of pokemon'
+        }
         return errors;
     }
 
@@ -109,11 +115,13 @@ function PokemonListing({ loginState, setLoginState }: LoginType) {
                                         {({ input, meta }) => (
                                             <div>
                                                 <Inputcomp
+                                                    {...input}
                                                     inputLabel='Search...'
                                                     inputType='email'
                                                     inputColor='primary'
                                                     hasFullWidth={true}
-                                                    {...input} />
+                                                    onChange={e => matchData(e.target.value)}
+                                                />
                                                 {meta.error && meta.touched && <span className={style.errorm}>{meta.error}</span>}
                                             </div>
                                         )}
