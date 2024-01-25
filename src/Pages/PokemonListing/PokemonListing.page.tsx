@@ -66,7 +66,9 @@ function PokemonListing({ loginState, setLoginState }: LoginType) {
       const matchedData: PokemonDataType[] = [];
 
       localData.map((cardData: any) => {
-        if (cardData.species.name.toLowerCase().match(search.toLowerCase())) {
+        if (
+          cardData.species.name.toLowerCase().match(search.toLowerCase().trim())
+        ) {
           matchedData.push(cardData);
         } else {
           var dataFound = false;
@@ -123,7 +125,6 @@ function PokemonListing({ loginState, setLoginState }: LoginType) {
                         <Inputcomp
                           {...input}
                           inputLabel="Search..."
-                          inputType="email"
                           inputColor="primary"
                           hasFullWidth={true}
                           onChange={(e) => matchData(e.target.value)}
