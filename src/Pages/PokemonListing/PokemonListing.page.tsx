@@ -19,36 +19,6 @@ export type PokemonType = {
   url: string;
 };
 
-export const testMatchData = (search: string) => {
-  const localData = JSON.parse(localStorage.getItem("pokemonData") || "{}");
-
-  if (search) {
-    const matchedData: PokemonDataType[] = [];
-
-    localData.map((cardData: any) => {
-      if (
-        cardData.species.name.toLowerCase().match(search.toLowerCase().trim())
-      ) {
-        matchedData.push(cardData);
-      } else {
-        var dataFound = false;
-        cardData.abilities.map((pability: EbilitiesType) => {
-          if (pability.ability.name.toLowerCase().match(search.toLowerCase())) {
-            dataFound = true;
-          }
-        });
-        if (dataFound) {
-          matchedData.push(cardData);
-        }
-      }
-    });
-
-    return matchedData;
-  } else {
-    return localData;
-  }
-};
-
 const PokemonListing = ({ loginState, setLoginState }: LoginType) => {
   const [pokemonData, setPokemonData] = useState(
     localStorage.getItem("pokemonData")

@@ -1,7 +1,7 @@
-import { testMatchData } from "./PokemonListing.page";
+const TestMatchData = require("./TestingFunction");
 
 test("Sum should be 4", () => {
-  expect(testMatchData("bulba")).toBe([
+  const expectedData = [
     {
       abilities: [
         {
@@ -12737,5 +12737,6 @@ test("Sum should be 4", () => {
       ],
       weight: 69,
     },
-  ]);
+  ];
+  expect(TestMatchData("bulba")).toBe(expectedData);
 });
