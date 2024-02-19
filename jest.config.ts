@@ -1,13 +1,16 @@
-import type { Config } from "jest";
+// jest.config.ts
 
-const config: Config = {
-  verbose: true,
-  collectCoverageFrom: [
-    "**/*.{js,jsx}",
-    "!**/node_modules/**",
-    "!**/vendor/**",
-  ],
-  extensionsToTreatAsEsm: [".ts", ".tsx"],
+import type { Config } from "@jest/types";
+
+export default async (): Promise<Config.InitialOptions> => {
+  return {
+    transform: {
+      "^.+\\.jsx?$": "babel-jest",
+    },
+    moduleNameMapper: {
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy",
+      "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/fileMock.js",
+    },
+    moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  };
 };
-
-export default config;

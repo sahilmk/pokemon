@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
-import { Grid, IconButton, Input } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import { LoginType } from "../Loginpage/Loginpage.page";
-import { Buttoncomp, Inputcomp } from "../../stories";
+import { Buttoncomp, CircularLoader, Inputcomp } from "../../stories";
 import { PokemonCard } from "../../stories";
 import { Search } from "../../Icons";
 import { PokemonData } from "../../APIs/PokemonApi";
@@ -25,8 +25,10 @@ const PokemonListing = ({ loginState, setLoginState }: LoginType) => {
       ? JSON.parse(localStorage.getItem("currentUser") || "[]")
       : []
   );
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
+    setLoader(true);
     PokemonData()
       .then(async (result: any) => {
         const allPokemon = result.data.results;
@@ -48,6 +50,9 @@ const PokemonListing = ({ loginState, setLoginState }: LoginType) => {
       })
       .catch((err: any) => {
         alert(err.message);
+      })
+      .finally(() => {
+        setLoader(false);
       });
   }, []);
 
@@ -148,24 +153,27 @@ const PokemonListing = ({ loginState, setLoginState }: LoginType) => {
           )}
         />
       </div>
-
-      <Grid container rowSpacing={2}>
-        {pokemonData.map((pokemon: any) => {
-          return (
-            <Grid item xs={4} key={pokemon.forms[0].name}>
-              <PokemonCard
-                iurl={pokemon.sprites.other.dream_world.front_default}
-                pokemonName={pokemon.forms[0].name}
-                pokemonHeight={pokemon.height}
-                pokemonWeight={pokemon.weight}
-                abilities={pokemon.abilities.map((pability: any) => {
-                  return pability.ability.name;
-                })}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+      {loader ? (
+        <CircularLoader height="100vh" />
+      ) : (
+        <Grid container rowSpacing={2}>
+          {pokemonData.map((pokemon: any) => {
+            return (
+              <Grid item xs={4} key={pokemon.forms[0].name}>
+                <PokemonCard
+                  iurl={pokemon.sprites.other.dream_world.front_default}
+                  pokemonName={pokemon.forms[0].name}
+                  pokemonHeight={pokemon.height}
+                  pokemonWeight={pokemon.weight}
+                  abilities={pokemon.abilities.map((pability: any) => {
+                    return pability.ability.name;
+                  })}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
     </div>
   );
 };
