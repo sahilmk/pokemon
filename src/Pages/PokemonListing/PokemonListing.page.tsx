@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import { Grid, IconButton } from "@mui/material";
 import { LoginType } from "../Loginpage/Loginpage.page";
-import { Buttoncomp, CircularLoader, Inputcomp } from "../../stories";
-import { PokemonCard } from "../../stories";
+import {
+  Buttoncomp,
+  CircularLoader,
+  Inputcomp,
+} from "../../stories/components";
+import { PokemonCard } from "../../stories/components";
 import { Search } from "../../Icons";
 import { PokemonData } from "../../APIs/PokemonApi";
 import { GetMethod } from "../../Util/ApiManager";
